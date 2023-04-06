@@ -1,0 +1,40 @@
+CREATE DATABASE test;
+
+CREATE TABLE sinh_vien (
+	ma UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
+	ten VARCHAR(100) NULL,
+	tuoi BIGINT NULL,
+	dia_chi VARCHAR(100) NULL,
+	gioi_tinh BIT NULL,
+	maGV UNIQUEIDENTIFIER
+)
+
+CREATE TABLE giang_vien (
+	ma UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
+	ten VARCHAR(100) NULL
+)
+
+alter table sinh_vien  ADD FOREIGN KEY (maGV) REFERENCES giang_vien (ma)
+
+    INSERT INTO test.dbo.giang_vien
+(ma, ten)
+VALUES(N'897FEFB1-5BCA-4038-99F8-48702C936EAF', N'PhongTT35');
+INSERT INTO test.dbo.giang_vien
+(ma, ten)
+VALUES(N'72E256FD-C743-4395-A78B-A2890D554DAC', N'NguyenVV4');
+INSERT INTO test.dbo.giang_vien
+(ma, ten)
+VALUES(N'B8A04902-3A46-4388-B82E-B81B6A0D81F1', N'HangNT169');
+
+INSERT INTO test.dbo.sinh_vien
+(ma, ten, tuoi, dia_chi, gioi_tinh, maGV)
+VALUES(N'A0B5C174-D5BE-48CB-8897-350EF3130274', N'Nguyen Van B', 11, N'Ha Noi1', 0, N'897FEFB1-5BCA-4038-99F8-48702C936EAF');
+INSERT INTO test.dbo.sinh_vien
+(ma, ten, tuoi, dia_chi, gioi_tinh, maGV)
+VALUES(N'00A2754F-E08D-4656-BEA1-6ACE74B6FC50', N'Nguyen Van A', 10, N'Ha Noi', 1, N'897FEFB1-5BCA-4038-99F8-48702C936EAF');
+INSERT INTO test.dbo.sinh_vien
+(ma, ten, tuoi, dia_chi, gioi_tinh, maGV)
+VALUES(N'01B03516-187E-4DC2-82CC-C4312EC3E34F', N'Nguyen Van B2', 11, N'Ha Noi1', 1, N'B8A04902-3A46-4388-B82E-B81B6A0D81F1');
+INSERT INTO test.dbo.sinh_vien
+(ma, ten, tuoi, dia_chi, gioi_tinh, maGV)
+VALUES(N'B4333CB2-F22B-4AC0-9436-E07182F233B3', N'Nguyen Van B3', 11, N'Ha Noi1', 1, N'72E256FD-C743-4395-A78B-A2890D554DAC');

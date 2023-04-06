@@ -1,2 +1,1 @@
-# SOF306_JAVA4_FPT_POLY
-Lập trình Java 4
+# SOF3011_Java4_Poly
