@@ -13,6 +13,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author hangnt169
@@ -29,18 +30,19 @@ public class SinhVienServiceImpl implements SinhVienService {
     }
 
     @Override
-    public SinhVienResponse detailSinhVien(Long id) {
+    public SinhVienResponse detailSinhVien(UUID id) {
         return sinhVienRepository.getOne(id);
     }
 
     @Override
-    public void removeSinhVien(Long id) {
+    public void removeSinhVien(UUID id) {
         SinhVien sv = sinhVienRepository.findByID(id);
         sinhVienRepository.delete(sv);
     }
 
     /**
      * Add hoặc Update đối tượng Sinh Viên
+     *
      * @param request: Các giá trị lấy từ ô input của 1 đối tượng Sinh Viên bên view
      * @return list lỗi => Nếu không thoả mãn validate => List lỗi có size >0 và ngược lại
      */
@@ -64,10 +66,10 @@ public class SinhVienServiceImpl implements SinhVienService {
             sinhVien.setId(request.getId());
             sinhVien.setMaSV(request.getMa());
             sinhVien.setTen(request.getTen());
-            sinhVien.setGioiTinh(request.isGioiTinh());
+//            sinhVien.setGioiTinh(request.isGioiTinh());
             sinhVien.setEmail(request.getEmail());
-            Lop lop = lopRepository.findByID(Long.valueOf(request.getLopID()));
-            ChuyenNganh chuyenNganh = chuyenNganhRepository.findByID(Long.valueOf(request.getChuyenNganhID()));
+            Lop lop = lopRepository.findByID(request.getLopID());
+            ChuyenNganh chuyenNganh = chuyenNganhRepository.findByID(request.getChuyenNganhID());
             sinhVien.setLop(lop);
             sinhVien.setChuyenNganh(chuyenNganh);
             sinhVienRepository.addOrUpdateSinhVien(sinhVien);
@@ -75,4 +77,7 @@ public class SinhVienServiceImpl implements SinhVienService {
         return lists;
     }
 
+    public static void main(String[] args) {
+        System.out.println(new SinhVienServiceImpl().hienThiSinhVien());
+    }
 }

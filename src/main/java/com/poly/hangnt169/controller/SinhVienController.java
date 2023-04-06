@@ -19,6 +19,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author hangnt169
@@ -73,13 +74,13 @@ public class SinhVienController extends HttpServlet {
 
 
         SinhVienRequest sinhVienRequest = SinhVienRequest.builder()
-                .id(id == "" ? null : Long.valueOf(id))
+                .id(id == "" ? null : UUID.fromString(id))
                 .ma(mssv)
                 .ten(ten)
                 .email(email)
                 .gioiTinh(Boolean.valueOf(gioiTinh))
-                .lopID(Long.valueOf(lopID))
-                .chuyenNganhID(Long.valueOf(chuyenNganhID))
+                .lopID(UUID.fromString(lopID))
+                .chuyenNganhID(UUID.fromString(chuyenNganhID))
                 .build();
 
         HashMap<String, String> errors = sinhVienService.addOrUpdateSinhVien(sinhVienRequest);
@@ -105,7 +106,7 @@ public class SinhVienController extends HttpServlet {
 
     private void detailSinhVien(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String id = request.getParameter("id");
-        SinhVienResponse sinhVien = sinhVienService.detailSinhVien(Long.valueOf(id));
+        SinhVienResponse sinhVien = sinhVienService.detailSinhVien(UUID.fromString(id));
         request.setAttribute("sinhVien", sinhVien);
         List<SinhVienResponse> sinhViens = sinhVienService.hienThiSinhVien();
         List<ChuyenNganhResponse> chuyenNganhs = chuyenNganhService.hienThiDanhSachChuyenNganh();
@@ -118,7 +119,7 @@ public class SinhVienController extends HttpServlet {
 
     private void deleteSinhVien(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
-        sinhVienService.removeSinhVien(Long.valueOf(id));
+        sinhVienService.removeSinhVien(UUID.fromString(id));
         List<SinhVienResponse> sinhViens = sinhVienService.hienThiSinhVien();
         List<ChuyenNganhResponse> chuyenNganhs = chuyenNganhService.hienThiDanhSachChuyenNganh();
         List<LopResponse> lops = lopService.hienThiDanhSachLop();

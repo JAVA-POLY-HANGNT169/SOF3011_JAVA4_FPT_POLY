@@ -4,7 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
+
+import java.util.UUID;
 
 /**
  * @author hangnt169
@@ -16,7 +17,8 @@ import lombok.ToString;
 @NoArgsConstructor
 public class ChuyenNganhResponse {
 
-    private Long id;
+    private UUID id;
+
     private String tenChuyenNganh;
 
 }

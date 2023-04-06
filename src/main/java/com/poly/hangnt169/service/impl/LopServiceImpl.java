@@ -9,6 +9,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author hangnt169
@@ -23,18 +24,19 @@ public class LopServiceImpl implements LopService {
     }
 
     @Override
-    public LopResponse detailLopHoc(Long id) {
+    public LopResponse detailLopHoc(UUID id) {
         return lopRepository.getOne(id);
     }
 
     @Override
-    public void removeLopHoc(Long id) {
+    public void removeLopHoc(UUID id) {
         Lop lop = lopRepository.findByID(id);
         lopRepository.delete(lop);
     }
 
     /**
      * Add Or Update Lop Hoc
+     *
      * @param request : Các giá trị của 1 đối tượng lấy từ các ô input bên view
      * @return List loi => Không thoả mãn validate => list lỗi > 0 và ngược lại
      */

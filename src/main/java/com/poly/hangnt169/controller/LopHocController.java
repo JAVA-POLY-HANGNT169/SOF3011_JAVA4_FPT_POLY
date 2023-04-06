@@ -1,7 +1,4 @@
 package com.poly.hangnt169.controller;
-/**
- * @author hangnt169
- */
 
 import com.poly.hangnt169.request.LopHocRequest;
 import com.poly.hangnt169.response.LopResponse;
@@ -16,7 +13,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
+/**
+ * @author hangnt169
+ */
 @WebServlet(name = "LopHocController", value = {
         "/lop-hoc/hien-thi",  // GET
         "/lop-hoc/add-update", // POST
@@ -53,9 +54,8 @@ public class LopHocController extends HttpServlet {
         String tenLop = request.getParameter("tenLop");
         String soLuongSV = request.getParameter("soLuongSinhVien");
 
-
         LopHocRequest sinhVienRequest = LopHocRequest.builder()
-                .id(id == "" ? null : Long.valueOf(id))
+                .id(id == "" ? null : UUID.fromString(id))
                 .tenLop(tenLop)
                 .maLop(maLop)
                 .soLuongSV(soLuongSV == "" ? null : Integer.valueOf(soLuongSV))
@@ -76,7 +76,7 @@ public class LopHocController extends HttpServlet {
 
     private void detailLopHoc(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String id = request.getParameter("id");
-        LopResponse sinhVien = lopService.detailLopHoc(Long.valueOf(id));
+        LopResponse sinhVien = lopService.detailLopHoc(UUID.fromString(id));
         request.setAttribute("lopHoc", sinhVien);
         List<LopResponse> lops = lopService.hienThiDanhSachLop();
         request.setAttribute("lops", lops);
@@ -85,7 +85,7 @@ public class LopHocController extends HttpServlet {
 
     private void deleteLopHoc(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
-        lopService.removeLopHoc(Long.valueOf(id));
+        lopService.removeLopHoc(UUID.fromString(id));
         List<LopResponse> lops = lopService.hienThiDanhSachLop();
         request.setAttribute("lops", lops);
         request.getRequestDispatcher("/view/lophoc/lop-hoc.jsp").forward(request, response);

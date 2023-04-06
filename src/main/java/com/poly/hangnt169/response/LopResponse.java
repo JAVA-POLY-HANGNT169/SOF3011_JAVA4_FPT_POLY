@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 /**
  * @author hangnt169
  */
@@ -14,9 +16,12 @@ import lombok.Setter;
 @NoArgsConstructor
 public class LopResponse {
 
-    private Long id;
+    private UUID id;
+
     private String tenLop;
+
     private String maLop;
+
     private Integer soLuongSV;
 
 }

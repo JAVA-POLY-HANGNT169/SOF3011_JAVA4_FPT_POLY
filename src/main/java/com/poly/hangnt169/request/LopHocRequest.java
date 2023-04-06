@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 /**
  * @author hangnt169
  */
@@ -16,9 +18,12 @@ import lombok.Setter;
 @Builder
 public class LopHocRequest {
 
-    private Long id;
+    private UUID id;
+
     private String maLop;
+
     private String tenLop;
+
     private Integer soLuongSV;
 
 }
