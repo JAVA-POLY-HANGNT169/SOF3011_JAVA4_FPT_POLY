@@ -65,7 +65,7 @@
                     <td>${mt.mieuTa}</td>
                     <td>
                         <a href="/may-tinh/detail?ma=${mt.ma}" class="btn btn-success " role="button"
-                           data-bs-toggle="button" aria-pressed="true">Detail</a>
+                           data-bs-toggle="button" aria-pressed="true">Detailk</a>
                         <a href="/may-tinh/remove?ma=${mt.ma}" class="btn btn-danger " role="button"
                            data-bs-toggle="button" aria-pressed="true">Delete</a>
                         <a href="/may-tinh/view-update?ma=${mt.ma}" class="btn btn-primary " role="button"
