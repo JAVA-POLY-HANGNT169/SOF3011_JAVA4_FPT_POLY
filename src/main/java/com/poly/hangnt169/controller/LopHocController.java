@@ -1,10 +1,8 @@
 package com.poly.hangnt169.controller;
-/**
- * @author hangnt169
- */
 
 import com.poly.hangnt169.entity.Lop;
-import com.poly.hangnt169.repository.LopRepository;
+import com.poly.hangnt169.service.LopService;
+import com.poly.hangnt169.service.impl.LopServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,7 +11,11 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
+/**
+ * @author hangnt169
+ */
 @WebServlet(name = "LopHocController", value = {
         "/lop-hoc/hien-thi",  // GET
         "/lop-hoc/add",      // POST
@@ -25,7 +27,7 @@ import java.util.List;
 })
 public class LopHocController extends HttpServlet {
 
-    private LopRepository lopRepository = new LopRepository();
+    private LopService lopService = new LopServiceImpl();
 
     /**
      * Tập hợp của tất cả các yêu cầu ( hiển thị hoặc lấy dữ liệu )=> Method GET
@@ -92,7 +94,7 @@ public class LopHocController extends HttpServlet {
      */
     private void hienThiLopHoc(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Lấy tất cả dữ liệu từ DB
-        List<Lop> lops = lopRepository.getAll();
+        List<Lop> lops = lopService.getAll();
         request.setAttribute("lops", lops);
         request.getRequestDispatcher("/view/lop-hoc.jsp").forward(request, response);
     }
@@ -103,20 +105,19 @@ public class LopHocController extends HttpServlet {
 
     private void viewUpdateLopHoc(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String id = request.getParameter("id");
-        Lop lop = lopRepository.getOne(Long.valueOf(id));
+        Lop lop = lopService.getOne(id);
         request.setAttribute("lopHoc", lop);
-        List<Lop> lops = lopRepository.getAll();
+        List<Lop> lops = lopService.getAll();
         request.setAttribute("lops", lops);
         request.getRequestDispatcher("/view/view-update-lop-hoc.jsp").forward(request, response);
     }
 
     private void detailLopHoc(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
-        Lop lop = lopRepository.getOne(Long.valueOf(id));
+        Lop lop = lopService.getOne(id);
         request.setAttribute("lopHoc", lop);
         request.getRequestDispatcher("/view/detail-lop-hoc.jsp").forward(request, response);
     }
-
 
     /**
      * Xoá lớp học trong hệ thống
@@ -130,11 +131,11 @@ public class LopHocController extends HttpServlet {
         // Lấy giá trị có tên là id từ đường dẫn xuống
         String id = request.getParameter("id");
         // Tìm xem có tìm thấy đối tương có ID cần tìm không
-        Lop lop = lopRepository.getOne(Long.valueOf(id));
+        Lop lop = lopService.getOne(id);
         // Xoá đối tượng đấy
-        lopRepository.delete(lop);
+        lopService.delete(lop);
         // Hiển thị toàn bộ dữ liệu trong trang chính
-        List<Lop> lops = lopRepository.getAll();
+        List<Lop> lops = lopService.getAll();
         request.setAttribute("lops", lops);
         request.getRequestDispatcher("/view/lop-hoc.jsp").forward(request, response);
     }
@@ -169,8 +170,8 @@ public class LopHocController extends HttpServlet {
         }
         // Nếu thoả mãn đk => Add
         if (!maLop.isEmpty() && !tenLop.isEmpty() && !soLuongSV.isEmpty()) {
-            Lop lop = new Lop(maLop, tenLop, Integer.valueOf(soLuongSV));
-            lopRepository.add(lop);
+            Lop lop = new Lop(null, maLop, tenLop, Integer.valueOf(soLuongSV));
+            lopService.add(lop);
             response.sendRedirect("/lop-hoc/hien-thi");
         }
     }
@@ -201,8 +202,8 @@ public class LopHocController extends HttpServlet {
         }
         // Nếu thoả mãn đk => Update
         if (!tenLop.isEmpty() && !soLuongSV.isEmpty()) {
-            Lop lop = new Lop(Long.valueOf(id), maLop, tenLop, Integer.valueOf(soLuongSV));
-            lopRepository.update(lop);
+            Lop lop = new Lop(UUID.fromString(id), maLop, tenLop, Integer.valueOf(soLuongSV));
+            lopService.update(lop);
             response.sendRedirect("/lop-hoc/hien-thi");
         }
     }

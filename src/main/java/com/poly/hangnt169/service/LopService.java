@@ -1,18 +1,22 @@
 package com.poly.hangnt169.service;
 
 import com.poly.hangnt169.entity.Lop;
-import com.poly.hangnt169.repository.LopRepository;
 
 import java.util.List;
 
 /**
  * @author hangnt169
  */
-public class LopService {
+public interface LopService {
 
-    private LopRepository lopRepository = new LopRepository();
+    List<Lop> getAll();
 
-    public List<Lop>getAll(){
-        return lopRepository.getAll();
-    }
+    Lop getOne(String id);
+
+    void add(Lop category);
+
+    void update(Lop category);
+
+    void delete(Lop category);
+
 }
