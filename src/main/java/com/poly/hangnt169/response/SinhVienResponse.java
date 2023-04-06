@@ -4,34 +4,27 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.UUID;
 
-/**
- * @author hangnt169
- */
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class SinhVienResponse {
 
-    private UUID id;
+    private UUID ma;
 
-    private String maSV;
+    private String ten;
 
-    private String tenSV;
+    private Long tuoi;
 
-    private String email;
+    private String diaChi;
 
     private Boolean gioiTinh;
 
-    private String tenLop;
-
-    private String tenChuyenNganh;
-
-    private UUID lopID;
-
-    private UUID chuyenNganhID;
+    private String tenGV;
 
 }

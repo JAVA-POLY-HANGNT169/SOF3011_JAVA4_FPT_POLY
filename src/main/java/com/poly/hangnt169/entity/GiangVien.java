@@ -1,4 +1,4 @@
-package com.fpt.poly.lab.entity;
+package com.poly.hangnt169.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

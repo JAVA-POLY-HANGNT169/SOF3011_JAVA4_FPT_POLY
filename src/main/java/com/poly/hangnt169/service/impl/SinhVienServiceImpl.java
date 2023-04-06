@@ -1,10 +1,6 @@
 package com.poly.hangnt169.service.impl;
 
-import com.poly.hangnt169.entity.ChuyenNganh;
-import com.poly.hangnt169.entity.Lop;
 import com.poly.hangnt169.entity.SinhVien;
-import com.poly.hangnt169.repository.ChuyenNganhRepository;
-import com.poly.hangnt169.repository.LopRepository;
 import com.poly.hangnt169.repository.SinhVienRepository;
 import com.poly.hangnt169.request.SinhVienRequest;
 import com.poly.hangnt169.response.SinhVienResponse;
@@ -21,17 +17,15 @@ import java.util.UUID;
 public class SinhVienServiceImpl implements SinhVienService {
 
     private SinhVienRepository sinhVienRepository = new SinhVienRepository();
-    private LopRepository lopRepository = new LopRepository();
-    private ChuyenNganhRepository chuyenNganhRepository = new ChuyenNganhRepository();
 
     @Override
     public List<SinhVienResponse> hienThiSinhVien() {
-        return sinhVienRepository.getAll();
+        return null;
     }
 
     @Override
     public SinhVienResponse detailSinhVien(UUID id) {
-        return sinhVienRepository.getOne(id);
+        return null;
     }
 
     @Override
@@ -62,17 +56,17 @@ public class SinhVienServiceImpl implements SinhVienService {
 
         // Thoả mãn validate
         if (lists.isEmpty()) {
-            SinhVien sinhVien = new SinhVien();
-            sinhVien.setId(request.getId());
-            sinhVien.setMaSV(request.getMa());
-            sinhVien.setTen(request.getTen());
-//            sinhVien.setGioiTinh(request.isGioiTinh());
-            sinhVien.setEmail(request.getEmail());
-            Lop lop = lopRepository.findByID(request.getLopID());
-            ChuyenNganh chuyenNganh = chuyenNganhRepository.findByID(request.getChuyenNganhID());
-            sinhVien.setLop(lop);
-            sinhVien.setChuyenNganh(chuyenNganh);
-            sinhVienRepository.addOrUpdateSinhVien(sinhVien);
+//            SinhVien sinhVien = new SinhVien();
+//            sinhVien.setId(request.getId());
+//            sinhVien.setMaSV(request.getMa());
+//            sinhVien.setTen(request.getTen());
+////            sinhVien.setGioiTinh(request.isGioiTinh());
+//            sinhVien.setEmail(request.getEmail());
+//            Lop lop = lopRepository.findByID(request.getLopID());
+//            ChuyenNganh chuyenNganh = chuyenNganhRepository.findByID(request.getChuyenNganhID());
+//            sinhVien.setLop(lop);
+//            sinhVien.setChuyenNganh(chuyenNganh);
+//            sinhVienRepository.addOrUpdateSinhVien(sinhVien);
         }
         return lists;
     }

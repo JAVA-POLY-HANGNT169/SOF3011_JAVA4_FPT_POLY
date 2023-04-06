@@ -1,7 +1,5 @@
 package com.poly.hangnt169.util;
 
-import com.poly.hangnt169.entity.ChuyenNganh;
-import com.poly.hangnt169.entity.Lop;
 import com.poly.hangnt169.entity.SinhVien;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -26,8 +24,6 @@ public class HibernateUtil {
             properties.put(Environment.SHOW_SQL, "true");
 
             configuration.setProperties(properties);
-            configuration.addAnnotatedClass(Lop.class);
-            configuration.addAnnotatedClass(ChuyenNganh.class);
             configuration.addAnnotatedClass(SinhVien.class);
             StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
             SESSION_FACTORY = configuration.buildSessionFactory(builder.build());

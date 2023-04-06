@@ -19,47 +19,51 @@ public class SinhVienRepository {
 
     private SessionFactory sessionFactory;
 
+    private String fromTable ="FROM SinhVien";
+
     public SinhVienRepository() {
         sessionFactory = HibernateUtil.getSessionFactory();
     }
-
-    public List<SinhVienResponse> getAll() {
-        String sql = "SELECT new com.poly.hangnt169.response.SinhVienResponse "
-                + " ( sv.id ,sv.maSV, sv.ten,sv.email,sv.gioiTinh,sv.lop.tenLop," +
-                " sv.chuyenNganh.tenChuyenNganh,sv.lop.id,sv.chuyenNganh.id) "
-                + " FROM SinhVien sv JOIN ChuyenNganh c "
-                + " ON  sv.chuyenNganh.id = c.id JOIN Lop l ON sv.lop.id = l.id";
-        List<SinhVienResponse> sinhViens = new ArrayList<>();
-        try (Session session = sessionFactory.openSession()) {
-            Query query = session.createQuery(sql);
-            sinhViens = query.getResultList();
-        } catch (Exception e) {
-            e.printStackTrace(System.out);
-        }
-        return sinhViens;
+//    public List<SinhVien> getAll() {
+        List<SinhVien> lists = new ArrayList<>();
+//        try (Session session = sessionFactory.openSession()) {
+//            String hql = "SELECT sv FROM SinhVien sv JOIN FETCH sv.giangVien";
+////            String hql = "SELECT e FROM SinhVien e";
+//            Query query = session.createQuery(hql, SinhVien.class);
+//            lists = query.getResultList();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return lists;
+//        Session session = HibernateUtil.getFACTORY().openSession();
+//        Query query = session.createQuery("FROM SinhVien ", SinhVien.class);
+//        List<SinhVien> products = query.getResultList();
+//        return products == null ? new ArrayList<>() : products;
+//    }
+    public List<SinhVien> getAll() {
+        Query query = sessionFactory.openSession().createQuery(fromTable, SinhVien.class);
+        List<SinhVien> categorys = query.getResultList();
+        return categorys == null ? new ArrayList<>() : categorys;
     }
-
-    public SinhVienResponse getOne(UUID id) {
-        SinhVienResponse sinhVien = null;
+    public List<SinhVienResponse> getAll1() {
+        List<SinhVienResponse> responses = new ArrayList<>();
         String sql = "SELECT new com.poly.hangnt169.response.SinhVienResponse "
-                + " ( sv.id ,sv.maSV, sv.ten,sv.email,sv.gioiTinh,sv.lop.tenLop," +
-                " sv.chuyenNganh.tenChuyenNganh,sv.lop.id,sv.chuyenNganh.id) "
-                + " FROM SinhVien sv JOIN ChuyenNganh c "
-                + " ON  sv.chuyenNganh.id = c.id JOIN Lop l ON sv.lop.id = l.id  WHERE sv.id=:id";
+                + " ( sv.ma ,sv.ten, sv.tuoi,sv.diaChi,sv.gioiTinh,sv.giangVien.ten )"
+                + " FROM SinhVien sv JOIN GiangVien gv "
+                + " ON  sv.giangVien.ma = gv.ma ";
         try (Session session = sessionFactory.openSession()) {
             Query query = session.createQuery(sql);
-            query.setParameter("id", id);
-            sinhVien = (SinhVienResponse) query.getSingleResult();
+            responses = query.getResultList();
         } catch (Exception e) {
             e.printStackTrace(System.out);
         }
-        return sinhVien;
+        return responses;
     }
 
     public SinhVien findByID(UUID id) {
         SinhVien sinhVien = null;
         try (Session session = sessionFactory.openSession()) {
-            String sql = "FROM SinhVien WHERE id =:id";
+            String sql = fromTable + " WHERE id =:id";
             Query query = session.createQuery(sql, SinhVien.class);
             query.setParameter("id", id);
             sinhVien = (SinhVien) query.getSingleResult();

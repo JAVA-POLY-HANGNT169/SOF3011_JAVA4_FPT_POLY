@@ -16,7 +16,6 @@ import org.hibernate.annotations.GenericGenerator;
 
 import java.util.UUID;
 
-
 @Getter
 @Setter
 @Entity
@@ -26,29 +25,25 @@ import java.util.UUID;
 public class SinhVien {
 
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "id", updatable = false, nullable = false)
-    private UUID id;
-
-    @Column(name = "maSV")
-    private String maSV;
+    @GenericGenerator(name = "generator", strategy = "uuid", parameters = {})
+    @GeneratedValue(generator = "generator")
+    @Column(name = "ma", nullable = false)
+    private UUID ma;
 
     @Column(name = "ten")
     private String ten;
 
-    @Column(name = "email")
-    private String email;
+    @Column(name = "tuoi")
+    private Long tuoi;
+
+    @Column(name = "dia_chi")
+    private String diaChi;
 
     @Column(name = "gioi_tinh")
-    private boolean gioiTinh;
+    private Boolean gioiTinh;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lop_id", referencedColumnName = "id")
-    private Lop lop;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "chuyen_nganh_id", referencedColumnName = "id")
-    private ChuyenNganh chuyenNganh;
+    @JoinColumn(name = "maGV", referencedColumnName = "ma")
+    private GiangVien giangVien;
 
 }
